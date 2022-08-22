@@ -1,10 +1,11 @@
 const mysql = require("mysql");
+require("dotenv").config();
 //TODO: change to Environment variables
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "pokedex2.0",
+  host: process.env.SQL_HOST,
+  user: process.env.USER,
+  password: process.env.PASS,
+  database: process.env.DATABASE,
 });
 
 connection.connect(function (err) {
