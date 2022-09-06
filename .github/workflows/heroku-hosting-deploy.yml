@@ -15,7 +15,7 @@ env:
   DATABASE: '${{ secrets.DATABASE }}'
 
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,4 +29,4 @@ jobs:
           email: ${{secrets.HEROKU_EMAIL}}
           app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_branch: "main"
-          subfolder: ""
+          subfolder: "./"
