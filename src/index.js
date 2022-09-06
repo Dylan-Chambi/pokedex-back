@@ -10,7 +10,8 @@ app.use(express.json())
 
 app.use('/api', routes);
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(4000, () => {
-    console.log('Happy Codding the app listening on port 4000!');
+app.listen(PORT, () => {
+    console.log(`Happy Codding the app listening on port ${PORT}!`);
 });
