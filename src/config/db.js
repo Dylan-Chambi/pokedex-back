@@ -2,28 +2,39 @@ require('dotenv').config()
 const mysql = require("mysql");
 require("dotenv").config();
 //TODO: change to Environment variables
-const connection = mysql.createConnection({
+const DB_CONFIG = {
   host: process.env.SQL_HOST,
   user: process.env.USER,
   password: process.env.PASS,
   database: process.env.DATABASE,
-});
+};
 
-connection.connect(function (err) {
-  if (err) {
-    return console.error("error: " + err.message);
-  }
-  console.log("Connected to the MySQL server.");
-});
+var connection;
 
-// Create a pool connection
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "pokedex2.0",
-});
+function handleDisconnect() {
+  connection = mysql.createPool(DB_CONFIG); // Recreate the connection, since
+  // the old one cannot be reused.
+
+  connection.getConnection(function (err) {
+    if (err) {
+      console.log("error when connecting to db:", err);
+      setTimeout(handleDisconnect, 2000);
+    }else{
+      console.log("Connected to the MySQL server.");
+    }
+  });
+
+  connection.on("error", function (err) {
+    console.log("db error", err);
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      handleDisconnect();
+    } else {
+      throw err;
+    }
+  });
+}
+
+handleDisconnect();
 
 module.exports = connection;
 
