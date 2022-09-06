@@ -23,10 +23,8 @@ jobs:
         with:
           node-version: '16.x'
       - run: npm install
-      - uses: onekiloparsec/heroku-node-deploy-subfolder@v1.1.0
+      - uses: CDNievas/heroku-action@v1.0 # This is the action
         with:
-          api_key: ${{secrets.HEROKU_API_KEY}}
-          email: ${{secrets.HEROKU_EMAIL}}
-          app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_branch: "main"
-          subfolder: "./"
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
