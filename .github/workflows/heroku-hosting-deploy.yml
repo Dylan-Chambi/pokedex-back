@@ -8,12 +8,6 @@ on:
     branches:
       - develop
 
-env:
-  SQL_HOST: '${{ secrets.SQL_HOST }}'
-  USER: '${{ secrets.USER }}'
-  PASS: '${{ secrets.PASS }}'
-  DATABASE: '${{ secrets.DATABASE }}'
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
